@@ -1,14 +1,14 @@
-from logic.analyser import summary_stats, top_users, call_type_distribution
+import streamlit as st
+import pandas as pd
+
+st.set_page_config(page_title="Telecom Billing Analyser", layout="wide")
+
+st.title("📞 Telecom Billing Analyser")
+
+uploaded_file = st.file_uploader("Upload Telecom Billing CSV", type=["csv"])
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
+    st.write("📄 Preview of Uploaded Data:")
+    st.dataframe(df.head())
 
-    st.subheader("📊 Summary")
-    stats = summary_stats(df)
-    st.write(stats)
-
-    st.subheader("🏅 Top 5 Users by Cost")
-    st.bar_chart(top_users(df))
-
-    st.subheader("📞 Call Type Distribution")
-    st.bar_chart(call_type_distribution(df))
